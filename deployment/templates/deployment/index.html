@@ -1,0 +1,40 @@
+{% load static %}
+
+<!doctype html>
+<html>
+  <head>
+    <title>Pothole Detector</title>   
+    <link href={% static "deployment/bootstrap.min.css" %} rel="stylesheet">
+    <link href={% static "deployment/form_upload.css" %} rel="stylesheet">
+    <link href={% static "deployment/div.css" %} rel="stylesheet">
+
+
+  </head>
+
+  <body class="text-center">    
+    <form class="form-upload" method=post enctype=multipart/form-data>    
+      {% csrf_token %}      
+      <h1>Pothole Detector</h1> 
+
+      <div>
+        <input type="file" name="image" id="image" class="form-control" required autofocus>   
+      </div>
+
+      <div>
+        <button class="btn btn-secondary btn-lg" type="submit"> Predict </button>
+      </div>
+
+      <div>
+        {% if image_location %}
+          <img class="mb-4" src={{image_location}} alt="" width="200" height="200">
+          <p>File name: {{filename}}</p>
+      </div>  
+
+      <div>
+        <h5 > Probability of Pothole: {{image_prediction}}%</h5>
+        {%endif%}
+    </div>    
+
+    </form>
+  </body>
+</html>
